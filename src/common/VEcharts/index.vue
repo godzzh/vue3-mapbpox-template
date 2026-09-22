@@ -76,7 +76,7 @@ const setOptions = () => {
         ],
         // 全局字体样式
         textStyle: {
-            fontFamily: 'Fira Sans, sans-serif',
+            fontFamily: 'v-sans',
             fontSize: 12,
         },
         animationEasing: 'elasticOut',

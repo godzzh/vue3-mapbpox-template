@@ -32,8 +32,6 @@ declare module 'vue' {
     NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
-    NRadioButton: typeof import('naive-ui')['NRadioButton']
-    NRadioGroup: typeof import('naive-ui')['NRadioGroup']
     NScrollbar: typeof import('naive-ui')['NScrollbar']
     NSelect: typeof import('naive-ui')['NSelect']
     OperationWarningContext: typeof import('./src/components/dashboard/OperationWarningContext.vue')['default']

@@ -2,27 +2,22 @@
 
 Vue 3 + TypeScript + Mapbox GL 地图大屏基础项目。目录名按需求保留为 `mapbpox`，包名与目录一致。
 
-## 已初始化能力
+## 当前能力
 
-- Mapbox GL 地图容器，支持 Token/Style 环境变量
-- 大屏顶部标题与实时状态
-- 左右两侧可折叠容器
-- 图层控制面板及图层开关状态
-- 底部业务菜单
-- Pinia 状态管理、Vue Router、严格 TypeScript 与 ESLint
-- 无 Token 时自动降级为本地演示底图，不阻塞界面开发
+- Vue Router Hash 模式的嵌套地图业务路由：`/home`、`/situation`、`/operation`、`/dispatch`
+- 登录页、Token 持久化、用户信息加载和路由鉴权
+- Mapbox 固定版本全局脚本、接口驱动的底图配置和本地深色降级样式
+- 大屏标题、左右可折叠面板、底部业务菜单、地图指北针和测量/绘制工具
+- API 驱动的右侧快捷菜单、资源图层和图层控制，以及管理员/非管理员权限过滤
+- 风险作战预警查询、详情、相关干系人、周边物联网设备和地图雷达扫描
+- Turf 空间范围与距离计算，AntV L7 动态雷达覆盖物
+- Pinia 状态管理、严格 TypeScript、ESLint 和生产构建校验
+
+> `/dispatch` 当前仅保留资源调度路由和地图页面占位，尚未实现调度业务面板与任务闭环。
 
 ## 开发
 
-首次运行先复制株洲项目的大屏框架静态资源：
-
-```powershell
-pnpm assets:copy
-```
-
-该命令会复制 `bg_header.png`、`menu_bg.png`、`menu_bg_active.png`、`bg_left.png`、`bg_right.png` 和 `arrow.png`。
-
-然后安装依赖并启动：
+环境要求：Node.js `>=20.19.0`、pnpm `>=9.0.0`。项目声明使用 pnpm `10.20.0`。
 
 ```powershell
 pnpm install
@@ -30,7 +25,16 @@ Copy-Item .env.example .env.local
 pnpm dev
 ```
 
-在 `.env.local` 中填写 `VITE_MAPBOX_ACCESS_TOKEN` 后，可使用 `mapbox://` 样式；也可把 `VITE_MAPBOX_STYLE` 配置成公开 style JSON URL。
+`.env.local` 当前可配置：
+
+```dotenv
+# 开发环境留空时使用 Vite 的 /smw、/common、/api 代理
+VITE_API_BASE_URL=
+```
+
+平台标题当前由 `src/config.ts` 的 `appConfig.platform.title` 维护；`.env.example` 中的 `VITE_PLATFORM_TITLE` 仅为预留项，现有代码尚未读取它。
+
+地图固定脚本和样式已放在 `public/static/mapbox`，由 `index.html` 加载；地图中心点、缩放级别、坐标系和底图样式由登录后请求的 `MapConfig` 接口返回，不通过环境变量配置 Mapbox Token 或 Style。
 
 ## 登录与接口
 
@@ -41,6 +45,61 @@ pnpm dev
 - `LoginOut`: `POST /smw/UAC/LoginOut`
 
 登录密码沿用参考项目规则：`md5(userCode + md5(password))`；Token 保存在 `localStorage.Token`，后续请求通过 `Authorization: Basic <Token>` 发送。
+
+路由守卫支持从 URL 查询参数中的 `token`、`Token` 或 `TOKEN` 接收登录凭证。非公开页面会先检查本地 Token，再加载用户信息、功能菜单、资源图层、图层控制和地图配置；鉴权失败时清理会话并重定向至 `/login`。
+
+## 路由与页面职责
+
+地图业务采用嵌套路由，公共壳位于 `src/views/MapScreen/index.vue`：
+
+| 路由 | 页面职责 |
+| --- | --- |
+| `/home` | 首页概览，仅编排左侧面板 |
+| `/situation` | 态势感知，编排左右两侧业务面板 |
+| `/operation` | 风险作战，预警查询、详情、周边设备与地图覆盖物 |
+| `/dispatch` | 资源调度占位页，当前尚未实现业务面板 |
+| `/login` | 城市坐标中枢风格登录页 |
+
+`MapScreen` 只负责共享地图、标题、右侧快捷工具、资源图层、图层控制和底部菜单。业务页面通过其 `<RouterView />` 渲染，禁止把具体路由业务条件写回公共壳。
+
+## 风险作战预警详情
+
+`/operation` 当前使用 `src/config/operation.ts` 中的吉安区域演示数据，尚未接入预警详情业务接口。页面流程如下：
+
+1. 左侧显示预警时间、关键词和状态筛选，以及预警事件列表；
+2. 点击预警后，左侧切换为预警详情，右侧展开相关干系人和周边物联网设备；
+3. 地图飞行到预警经纬度，并以至少 15 级缩放展示范围面、范围线、周边设备点和雷达扫描；
+4. 点击预警详情标题右上角关闭按钮后返回列表，同时隐藏右侧面板并清理临时地图内容。
+
+周边设备范围固定为：
+
+```text
+100m | 300m | 500m | 1000m
+```
+
+默认范围为 `300m`。距离 Tabs 保留原生 radio 和键盘操作语义。设备与预警点之间的距离通过 Turf `distance()` 实时计算，列表和地图点位随范围同步更新。
+
+主要文件：
+
+```text
+src/views/Operation/index.vue
+src/components/dashboard/OperationWarningQuery.vue
+src/components/dashboard/OperationWarningDetail.vue
+src/components/dashboard/OperationWarningContext.vue
+src/components/map/WarningRadarLayer.vue
+src/config/operation.ts
+```
+
+## 地图覆盖物与 L7 使用约束
+
+- 主地图只由 `MapView.vue` 创建，并暴露为 `window.mapViewer`；业务组件不得创建第二个 Mapbox 地图实例。
+- `MapView.vue` 在地图样式可用后通过 mitt 派发 `map:ready`。
+- 当前定制增强版 Mapbox 即使已可操作，`isStyleLoaded()` 仍可能返回 `false`，业务覆盖物不能只依赖该返回值判断是否初始化。
+- `WarningRadarLayer.vue` 通过 `@turf/turf` 生成范围圆和计算设备距离。
+- L7 使用 `new Mapbox({ mapInstance: window.mapViewer })` 附着到已有地图，并通过 `PointLayer().shape('radar')` 绘制扫描动画。
+- 雷达组件仅在选中预警后异步加载；Vite 将 L7 依赖拆分到 `warning-radar` chunk，避免刷新 `/operation` 列表页时提前执行地图适配代码。
+- 关闭详情时会移除缩放监听、雷达层、范围/设备图层和 GeoJSON Source。
+- 不直接调用 L7 `scene.destroy()`，因为当前 Mapbox 适配器会连带移除传入的主地图实例。
 
 ## 地图右侧菜单配置
 
@@ -244,10 +303,31 @@ GET /smw/Function/QueryByAppNo?appNo=qzq-map-control
 
 点击图层开关后，前端依次控制 `layerIds` 中所有存在于当前地图样式的图层。点击“恢复默认图层”时，恢复接口备注中配置的 `visible` 状态，而不是使用前端固定值。
 
+## 项目结构摘要
+
+```text
+src/
+├─ common/                 通用组件与公共视图
+├─ components/dashboard/   首页、态势、风险作战业务组件
+├─ components/map/         主地图、工具、图层面板和业务地图覆盖物
+├─ components/screen/      大屏标题、菜单、侧边面板和模块标题
+├─ config/                 应用配置、菜单配置与开发期演示数据
+├─ services/               鉴权、功能定义和地图配置 API
+├─ stores/                 用户会话及地图大屏状态
+├─ types/                  Mapbox 全局声明和公共类型
+└─ views/                  登录页、地图公共壳及各业务路由编排
+```
+
+开发期 Mock 数据必须放在 `src/config` 或独立 Mock 文件，不要直接写进页面组件。业务页面负责状态编排，展示区块应拆分到 `components/dashboard`，地图覆盖物应放在 `components/map`。
+
 ## 校验
+
+提交前依次执行：
 
 ```bash
 pnpm typecheck
 pnpm lint
 pnpm build
 ```
+
+构建时 Mapbox 非模块脚本和 `public` CSS 会出现运行时解析提示，这是当前固定脚本接入方式产生的已知提示。不要为消除提示改装 npm `mapbox-gl`。L7/Turf 会增加异步地图可视化分块体积，但不会在未进入预警详情时加载雷达模块。

@@ -21,11 +21,17 @@
                 <span class="font-mono text-[11px] text-sky-100/40">{{ nearbyDevices.length }} 台</span>
             </template>
 
-            <n-radio-group v-model:value="radius" class="mb-3 w-full" size="small">
-                <div class="grid grid-cols-4 gap-1.5">
-                    <n-radio-button v-for="option in radiusOptions" :key="option" :value="option" class="text-center">{{ option }}m</n-radio-button>
+            <fieldset class="mb-3">
+                <legend class="sr-only">设备搜索半径</legend>
+                <div class="grid grid-cols-4 border border-sky-200/10 bg-[#061a2d]/65 p-1" role="radiogroup" aria-label="设备搜索半径">
+                    <label v-for="option in radiusOptions" :key="option" class="group relative cursor-pointer">
+                        <input v-model="radius" class="peer sr-only" type="radio" name="device-search-radius" :value="option" />
+                        <span class="relative flex h-9 items-center justify-center font-mono text-xs text-sky-100/40 transition-[color,background-color,transform] after:absolute after:inset-x-2 after:bottom-0 after:h-0.5 after:origin-center after:scale-x-0 after:bg-screen-primary after:shadow-[0_0_8px_rgba(54,217,255,0.55)] after:transition-transform hover:bg-sky-800/20 hover:text-sky-50/75 active:translate-y-px peer-checked:bg-screen-primary/[0.08] peer-checked:text-screen-primary peer-checked:after:scale-x-100 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:-outline-offset-2 peer-focus-visible:outline-screen-primary/70">
+                            {{ option }}m
+                        </span>
+                    </label>
                 </div>
-            </n-radio-group>
+            </fieldset>
 
             <ul v-if="nearbyDevices.length" class="m-0 grid list-none gap-2 p-0">
                 <li v-for="device in nearbyDevices" :key="device.id" class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border border-sky-200/10 bg-[#08213a]/50 px-3 py-2.5">
@@ -75,11 +81,3 @@ const nearbyDevices = computed(() => {
         .sort((left, right) => left.distance - right.distance);
 });
 </script>
-
-<style scoped>
-:deep(.n-radio-button) {
-    --n-button-border-radius: 0 !important;
-    width: 100%;
-    padding: 0 4px;
-}
-</style>
