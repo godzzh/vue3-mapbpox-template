@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "DIGIB";
+    src: url("/static/fonts/DS-DIGIB.TTF") format("truetype");
+}
+
 :root {
     color-scheme: dark;
     color: #e8f7ff;
@@ -16,9 +21,17 @@
     --muted: rgba(201, 230, 244, 0.62);
 }
 
+.font-DIGIB {
+    font-family: DIGIB !important;
+}
+
+.font-vfonts {
+    font-family: v-sans !important;
+}
+
 *,
 body {
-    font-family: REGULAR !important;
+    font-family: v-sans !important;
 }
 
 * { box-sizing: border-box; }

@@ -13,17 +13,17 @@
             <li v-for="item in realtimeWarnings" :key="item.name" class="grid min-h-[46px] grid-cols-[5px_1fr_auto] items-center gap-[9px] border-b border-[rgba(120,193,223,0.09)]">
                 <i class="h-[22px] w-1" :class="warningLevelClasses[item.level]" />
                 <div class="grid gap-[3px]"><strong class="text-xs font-medium">{{ item.name }}</strong><span class="text-xs text-[rgba(222,241,250,0.47)]">{{ item.area }}</span></div>
-                <time class="text-xs text-[rgba(222,241,250,0.47)]">{{ item.time }}</time>
+                <time class="font-vfonts text-xs text-[rgba(222,241,250,0.47)]">{{ item.time }}</time>
             </li>
         </ul>
     </PanelSection>
     <PanelSection title="风险高发区域TOP10">
         <ol class="m-0 grid list-none grid-cols-[minmax(0,1fr)] p-0">
             <li v-for="(item,index) in riskAreas" :key="item.name" class="grid min-h-[34px] grid-cols-[28px_minmax(76px,auto)_1fr_30px] items-center gap-2 border-b border-[rgba(120,193,223,0.07)] text-xs">
-                <b class="font-['Fira_Code'] text-xs font-medium" :class="index < 3 ? 'text-[#f1c675] [text-shadow:0_0_7px_rgba(241,198,117,0.24)]' : 'text-[#67d8ef]'">{{ String(index+1).padStart(2,'0') }}</b>
+                <b class="font-vfonts text-xs font-medium" :class="index < 3 ? 'text-[#f1c675] [text-shadow:0_0_7px_rgba(241,198,117,0.24)]' : 'text-[#67d8ef]'">{{ String(index+1).padStart(2,'0') }}</b>
                 <span class="overflow-hidden text-ellipsis whitespace-nowrap text-[rgba(233,247,253,0.68)]">{{ item.name }}</span>
                 <div class="h-[5px] overflow-hidden bg-[rgba(32,72,106,0.55)]"><i class="risk-fill block h-full" :style="{ width: `${item.value}%` }" /></div>
-                <strong class="text-right font-['Fira_Code'] text-xs font-medium text-[#92e5f4]">{{ item.value }}</strong>
+                <strong class="text-right font-vfonts text-xs font-medium text-[#92e5f4]">{{ item.value }}</strong>
             </li>
         </ol>
     </PanelSection>

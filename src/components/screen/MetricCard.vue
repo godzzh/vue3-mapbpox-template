@@ -10,7 +10,7 @@
                 <span class="text-[11px] tracking-[0.08em] text-sky-100/55">{{ label }}</span>
                 <span class="h-1.5 w-1.5 bg-screen-primary/55 shadow-[0_0_6px_rgba(54,217,255,.55)]" />
             </div>
-            <strong class="font-mono text-[24px] font-medium leading-none tracking-[-0.04em] text-sky-50 [font-variant-numeric:tabular-nums]">{{ value }}</strong>
+            <strong class="font-vfonts text-[24px] font-medium leading-none tracking-[-0.04em] text-sky-50 [font-variant-numeric:tabular-nums]">{{ value }}</strong>
             <div class="flex items-center gap-1.5 text-[10px] text-sky-200/45">
                 <RiArrowUpSLine v-if="tone === 'up'" class="h-3.5 w-3.5 text-emerald-300/80" />
                 <RiPulseLine v-else class="h-3.5 w-3.5 text-screen-primary/65" />

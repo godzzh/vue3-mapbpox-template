@@ -22,9 +22,9 @@ export const dateRangeShortcuts: Record<string, [number, number]> = {
     ]
 }
 
-//没有前后空格
+// 普通单行文本不允许输入首尾空格；密码、正文等保留原始内容的字段不要使用。
 export const noSideSpace = (value: string) => {
-    return !value.startsWith(' ') && !value.endsWith(' ')
+    return !/^\s|\s$/.test(value)
 }
 
 //只能输入数字

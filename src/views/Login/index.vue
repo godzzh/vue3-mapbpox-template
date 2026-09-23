@@ -70,7 +70,7 @@
 
                     <n-form ref="formRef" :model="formData" :rules="rules" :show-require-mark="false" size="large" @submit.prevent="onSubmit">
                         <n-form-item label="账号" path="usercode">
-                            <n-input v-model:value="formData.usercode" placeholder="请输入账号" clearable autocomplete="username" @keyup.enter="onSubmit">
+                            <n-input v-model:value="formData.usercode" :allow-input="noSideSpace" placeholder="请输入账号" clearable autocomplete="username" @keyup.enter="onSubmit">
                                 <template #prefix><RiUser3Line class="h-5 w-5 text-screen-primary/65" /></template>
                             </n-input>
                         </n-form-item>
@@ -107,6 +107,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { appConfig } from '@/config';
 import { CPLogin } from '@/services/auth';
 import { useUserStore } from '@/stores/user';
+import { noSideSpace } from '@/utils/options';
 
 const route = useRoute();
 const router = useRouter();

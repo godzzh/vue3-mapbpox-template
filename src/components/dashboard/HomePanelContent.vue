@@ -6,7 +6,7 @@
                 <div class="device-gauge relative grid size-[68px] place-items-center rounded-full" :style="{ '--progress': `${item.percentage * 3.6}deg` }">
                     <div class="relative z-[1] grid size-[42px] place-items-center"><img class="size-7 object-contain" :src="item.icon" alt="" /></div>
                 </div>
-                <strong class="text-[19px] font-medium text-[#79e3f8]">{{ item.value.toLocaleString() }}</strong>
+                <strong class="font-vfonts text-[19px] font-medium text-[#79e3f8]">{{ item.value.toLocaleString() }}</strong>
             </article>
         </div>
     </PanelSection>
@@ -15,7 +15,7 @@
         <template #actions>
             <span class="flex items-baseline gap-1 text-xs text-sky-100/40">
                 资源总量
-                <strong class="font-mono text-sm font-medium text-[#83e7f8] [font-variant-numeric:tabular-nums]">{{ perceptionTotal.toLocaleString() }}</strong>
+                <strong class="font-vfonts text-sm font-medium text-[#83e7f8] [font-variant-numeric:tabular-nums]">{{ perceptionTotal.toLocaleString() }}</strong>
             </span>
         </template>
         <div class="grid grid-cols-2 gap-x-5 gap-y-3 px-1 py-0.5">
@@ -26,9 +26,9 @@
                 <span class="grid min-w-0 gap-1.5">
                     <span class="flex items-baseline justify-between gap-2">
                         <span class="truncate text-xs tracking-[0.04em] text-sky-50/65">{{ item.name }}</span>
-                        <small class="font-mono text-[10px] text-sky-100/35">{{ perceptionShare(item.value) }}%</small>
+                        <small class="font-vfonts text-[10px] text-sky-100/35">{{ perceptionShare(item.value) }}%</small>
                     </span>
-                    <strong class="font-mono text-[21px] font-medium leading-none tracking-tight text-[#83e7f8] [font-variant-numeric:tabular-nums]">{{ item.value.toLocaleString() }}</strong>
+                    <strong class="font-vfonts text-[21px] font-medium leading-none tracking-tight text-[#83e7f8] [font-variant-numeric:tabular-nums]">{{ item.value.toLocaleString() }}</strong>
                     <span class="h-px overflow-hidden bg-sky-950/80">
                         <i class="perception-progress block h-full" :style="{ width: `${perceptionShare(item.value)}%` }" />
                     </span>
@@ -41,7 +41,7 @@
         <template #actions>
             <span class="flex items-baseline gap-1 text-xs text-sky-100/40">
                 合计
-                <strong class="font-mono text-sm font-medium text-[#83e7f8] [font-variant-numeric:tabular-nums]">{{ policeCaseTotal }}</strong>
+                <strong class="font-vfonts text-sm font-medium text-[#83e7f8] [font-variant-numeric:tabular-nums]">{{ policeCaseTotal }}</strong>
                 起
             </span>
         </template>
@@ -59,9 +59,9 @@
                     <span class="h-1 flex-1 overflow-hidden bg-sky-950/70">
                         <i class="case-progress-fill block h-full" :style="{ width: `${item.percentage}%` }" />
                     </span>
-                    <small class="w-7 text-right font-mono text-[10px] text-sky-100/40">{{ item.percentage }}%</small>
+                    <small class="w-7 text-right font-vfonts text-[10px] text-sky-100/40">{{ item.percentage }}%</small>
                 </span>
-                <strong class="text-right font-mono text-lg font-medium leading-none text-[#83e7f8] [font-variant-numeric:tabular-nums]">
+                <strong class="text-right font-vfonts text-lg font-medium leading-none text-[#83e7f8] [font-variant-numeric:tabular-nums]">
                     {{ item.value }}<small class="ml-1 font-sans text-[10px] font-normal text-sky-100/40">起</small>
                 </strong>
             </article>

@@ -15,7 +15,7 @@
             <div class="overflow-hidden border border-sky-200/10 bg-[#08213a]/45">
                 <div class="flex items-start justify-between gap-3 border-b border-sky-200/10 px-3.5 py-3">
                     <div class="min-w-0">
-                        <span class="inline-flex border px-1.5 py-0.5 font-mono text-[10px]" :class="levelClass">{{ event.level }}</span>
+                        <span class="inline-flex border px-1.5 py-0.5 font-vfonts text-[10px]" :class="levelClass">{{ event.level }}</span>
                         <h3 class="mb-0 mt-2 text-[15px] font-semibold leading-6 text-sky-50/95">{{ event.title }}</h3>
                     </div>
                     <span class="flex flex-none items-center gap-1.5 pt-0.5 text-[11px]" :class="statusClass">
@@ -25,7 +25,7 @@
                 <dl class="m-0 divide-y divide-sky-200/[0.07] px-3.5">
                     <div v-for="item in detailRows" :key="item.label" class="grid grid-cols-[68px_minmax(0,1fr)] gap-3 py-2.5 text-xs leading-5">
                         <dt class="text-sky-100/38">{{ item.label }}</dt>
-                        <dd class="m-0 break-words text-sky-50/75">{{ item.value }}</dd>
+                        <dd class="m-0 break-words text-sky-50/75" :class="item.numeric ? 'font-vfonts' : ''">{{ item.value }}</dd>
                     </div>
                 </dl>
             </div>
@@ -52,11 +52,11 @@ const props = defineProps<{ event: OperationWarningEvent }>();
 defineEmits<{ close: [] }>();
 
 const detailRows = computed(() => [
-    { label: '预警编号', value: props.event.id },
-    { label: '预警来源', value: props.event.source },
-    { label: '预警地址', value: props.event.location },
-    { label: '预警时间', value: props.event.occurredAt },
-    { label: '经纬度', value: `${props.event.longitude.toFixed(6)}, ${props.event.latitude.toFixed(6)}` },
+    { label: '预警编号', value: props.event.id, numeric: true },
+    { label: '预警来源', value: props.event.source, numeric: false },
+    { label: '预警地址', value: props.event.location, numeric: false },
+    { label: '预警时间', value: props.event.occurredAt, numeric: true },
+    { label: '经纬度', value: `${props.event.longitude.toFixed(6)}, ${props.event.latitude.toFixed(6)}`, numeric: true },
 ]);
 const levelClass = computed(() => ({
     'Ⅰ级': 'border-red-300/30 bg-red-400/10 text-red-200',

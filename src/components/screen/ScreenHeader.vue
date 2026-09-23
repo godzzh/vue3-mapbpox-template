@@ -46,11 +46,11 @@
                     <div class="mx-4 h-px bg-gradient-to-r from-transparent via-screen-primary/20 to-transparent" />
                     <dl class="m-0 grid gap-2.5 px-4 py-3 text-[11px]">
                         <div class="grid grid-cols-[48px_1fr] gap-2"><dt class="text-sky-200/35">所属单位</dt><dd class="m-0 truncate text-right text-sky-100/65" :title="departmentName">{{ departmentName }}</dd></div>
-                        <div class="grid grid-cols-[48px_1fr] gap-2"><dt class="text-sky-200/35">登录地址</dt><dd class="m-0 text-right font-mono text-sky-100/55">{{ clientIP }}</dd></div>
+                        <div class="grid grid-cols-[48px_1fr] gap-2"><dt class="text-sky-200/35">登录地址</dt><dd class="m-0 text-right font-vfonts text-sky-100/55">{{ clientIP }}</dd></div>
                     </dl>
                     <button class="group/logout flex h-11 w-full items-center justify-between border-0 border-t border-red-300/10 bg-red-400/[0.035] px-4 text-left text-xs text-sky-100/65 transition-colors hover:bg-red-400/[0.09] hover:text-red-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-red-300/50 active:translate-y-px" type="button" role="menuitem" @click="confirmLogout">
                         <span class="flex items-center gap-2.5"><RiLogoutBoxRLine class="h-4 w-4 text-red-300/65 transition-transform group-hover/logout:translate-x-0.5" />退出登录</span>
-                        <span class="font-mono text-[9px] tracking-[0.12em] text-red-200/25">LOG OUT</span>
+                        <span class="font-vfonts text-[9px] tracking-[0.12em] text-red-200/25">LOG OUT</span>
                     </button>
                 </section>
             </Transition>

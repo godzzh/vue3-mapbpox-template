@@ -10,12 +10,12 @@
             >
                 <div class="min-h-[240px] p-4 pt-3">
                     <MapPopupTitle title="资源图层" />
-                    <div v-if="groups.length" class="max-h-[520px] overflow-y-auto pr-1">
+                    <n-scrollbar v-if="groups.length" class="max-h-[520px]">
                         <section v-for="group in groups" :key="group.functionCode" class="border-b border-sky-200/10 py-3.5 first:pt-1 last:border-b-0">
                             <header class="mb-2.5 grid grid-cols-[auto_1fr_auto] items-center gap-2.5">
                                 <span class="h-3.5 w-[3px] bg-screen-primary shadow-[0_0_7px_rgba(54,217,255,0.45)]" aria-hidden="true" />
                                 <strong class="truncate text-[13px] font-medium tracking-[0.08em] text-sky-50/90">{{ group.functionName }}</strong>
-                                <small class="font-mono text-[10px] text-sky-100/35">{{ group.children.length }} 项</small>
+                                <small class="font-vfonts text-[10px] text-sky-100/35">{{ group.children.length }} 项</small>
                             </header>
                             <div v-if="group.children.length" class="grid grid-cols-2 gap-1.5">
                                 <button
@@ -56,16 +56,14 @@
                                     />
                                 </button>
                             </div>
-                            <p v-else class="m-0 border-y border-sky-200/5 py-3 text-center text-xs text-sky-100/30">该分类暂无图层</p>
+                            <n-empty v-else class="border-y border-sky-200/5 py-3" size="small" description="该分类暂无图层" />
                         </section>
-                    </div>
-                    <div v-else class="grid min-h-[168px] place-content-center justify-items-center gap-2 border-y border-sky-200/10 text-center">
-                        <span class="grid size-10 place-items-center border border-sky-200/15 bg-sky-400/[0.04] text-xl text-sky-200/45" aria-hidden="true">
-                            <i class="ri-stack-line" />
-                        </span>
-                        <strong class="text-xs font-medium tracking-[0.08em] text-sky-50/70">暂无资源图层配置</strong>
-                        <span class="max-w-[220px] text-xs leading-5 text-sky-100/35">请在资源图层应用中配置图层分类及二级图层。</span>
-                    </div>
+                    </n-scrollbar>
+                    <n-empty v-else class="min-h-[168px] place-content-center border-y border-sky-200/10" description="暂无资源图层配置">
+                        <template #extra>
+                            <span class="text-xs leading-5 text-sky-100/35">请在资源图层应用中配置图层分类及二级图层。</span>
+                        </template>
+                    </n-empty>
                 </div>
             </TechModalFrame>
         </Transition>

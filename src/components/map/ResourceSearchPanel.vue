@@ -7,6 +7,7 @@
                 clearable
                 placeholder="请输入资源名称或关键字"
                 @keyup.enter="submitSearch"
+                :allow-input="noSideSpace"
             />
             <n-button type="primary" @click="submitSearch"
                 ><template #icon><RiSearchLine /></template>搜索</n-button
@@ -35,6 +36,7 @@
     </div>
 </template>
 <script setup lang="ts">
+import { noSideSpace } from "@/utils/options";
 import { RiSearchEyeLine, RiSearchLine } from '@remixicon/vue';
 import { ref } from 'vue';
 import MapPopupTitle from '@/components/map/MapPopupTitle.vue';

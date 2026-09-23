@@ -18,12 +18,12 @@
 
         <PanelSection title="预警事件">
             <template #actions>
-                <span class="font-mono text-[11px] text-sky-100/40">共 {{ filteredEvents.length }} 条</span>
+                <span class="font-vfonts text-[11px] text-sky-100/40">共 {{ filteredEvents.length }} 条</span>
             </template>
 
             <div class="mb-3">
                 <n-input-group class="w-full">
-                    <n-input v-model:value="keyword" clearable placeholder="搜索事件或位置">
+                    <n-input v-model:value="keyword" :allow-input="noSideSpace" clearable placeholder="搜索事件或位置">
                         <template #prefix><RiSearchLine class="size-4 text-screen-primary/60" /></template>
                     </n-input>
                     <n-select v-model:value="status" :options="statusOptions" class="w-[150px]" />
@@ -43,7 +43,7 @@
                     <div class="min-w-0">
                         <div class="flex items-start justify-between gap-2.5">
                             <div class="flex min-w-0 items-center gap-2">
-                                <span class="flex-none border px-1.5 py-0.5 font-mono text-[10px] font-medium leading-4" :class="levelStyles[event.level].tag">{{ event.level }}</span>
+                                <span class="flex-none border px-1.5 py-0.5 font-vfonts text-[10px] font-medium leading-4" :class="levelStyles[event.level].tag">{{ event.level }}</span>
                                 <strong class="min-w-0 truncate text-[13px] font-medium leading-5 text-sky-50/90">{{ event.title }}</strong>
                             </div>
                             <span class="flex flex-none items-center gap-1.5 whitespace-nowrap pt-0.5 text-[10px]" :class="statusStyles[event.status]">
@@ -52,9 +52,9 @@
                             </span>
                         </div>
                         <span class="mt-0.5 block truncate text-[11px] leading-5 text-sky-100/45">{{ event.location }}</span>
-                        <div class="mt-1.5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 border-t border-sky-200/[0.07] pt-1.5 font-mono text-[10px]">
-                            <span class="truncate tracking-[0.03em] text-sky-100/28">{{ event.id }}</span>
-                            <time class="whitespace-nowrap text-sky-100/40">{{ formatEventTime(event.occurredAt) }}</time>
+                        <div class="mt-1.5 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 border-t border-sky-200/[0.07] pt-1.5 font-vfonts text-[10px]">
+                            <span class="font-vfonts truncate tracking-[0.03em] text-sky-100/28">{{ event.id }}</span>
+                            <time class="font-vfonts whitespace-nowrap text-sky-100/40">{{ formatEventTime(event.occurredAt) }}</time>
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@ import {
     type WarningEventLevel,
     type WarningEventStatus,
 } from '@/config/operation';
-import { dateRangeShortcuts } from '@/utils/options';
+import { dateRangeShortcuts, noSideSpace } from '@/utils/options';
 
 defineEmits<{ select: [event: OperationWarningEvent] }>();
 

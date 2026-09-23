@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
 import { appConfig } from '@/config';
+import { setAuthList } from '@/directives/auth';
 import type { LayerOption } from '@/types/screen';
 import { GetUserInfo, LoginOut, type UserInfo } from '@/services/auth';
 import {
@@ -123,6 +124,7 @@ export const useUserStore = defineStore('user', () => {
         resourceLayerFunctions.value = [];
         layerControlFunctions.value = [];
         layerService.value = '';
+        setAuthList([]);
         localStorage.removeItem(TOKEN_KEY);
     };
 
@@ -185,6 +187,11 @@ export const useUserStore = defineStore('user', () => {
             const response = await GetUserInfo();
             if (response.code !== 0 && response.code !== 200) return false;
             userInfo.value = response.result;
+            setAuthList(
+                response.result.isAdmin
+                    ? ['*']
+                    : (response.result.permissionList || []).map((item) => item.functionCode),
+            );
             await Promise.all([
                 loadAppFunctions(),
                 loadResourceLayerFunctions(),

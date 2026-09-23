@@ -5,14 +5,14 @@
                 <div class="grid min-w-0 gap-1">
                     <span class="text-xs tracking-[0.1em] text-sky-100/55">辖区风险隐患存量</span>
                     <span class="flex items-baseline gap-1.5">
-                        <strong class="font-mono text-[34px] font-semibold leading-none tracking-[-0.05em] text-[#8de9f7] [font-variant-numeric:tabular-nums] [text-shadow:0_0_16px_rgba(54,217,255,0.17)]">{{ totalHazards.value.toLocaleString() }}</strong>
+                        <strong class="font-vfonts text-[34px] font-semibold leading-none tracking-[-0.05em] text-[#8de9f7] [font-variant-numeric:tabular-nums] [text-shadow:0_0_16px_rgba(54,217,255,0.17)]">{{ totalHazards.value.toLocaleString() }}</strong>
                         <small class="text-xs text-sky-100/45">{{ totalHazards.unit }}</small>
                     </span>
                 </div>
                 <div class="grid justify-items-end gap-0.5 pb-0.5">
                     <span class="text-xs tracking-[0.08em] text-sky-100/45">整改率</span>
                     <span class="flex items-baseline">
-                        <strong class="font-mono text-[27px] font-semibold leading-none text-[#e8fbff] [font-variant-numeric:tabular-nums]">{{ rectificationRate.value }}</strong>
+                        <strong class="font-vfonts text-[27px] font-semibold leading-none text-[#e8fbff] [font-variant-numeric:tabular-nums]">{{ rectificationRate.value }}</strong>
                         <small class="ml-0.5 text-xs text-[#75ddeb]">%</small>
                     </span>
                 </div>
@@ -20,7 +20,7 @@
             <div class="relative px-3.5 pb-3">
                 <div class="mb-1.5 flex items-center justify-between text-[10px] text-sky-100/35">
                     <span>整改进度</span>
-                    <span class="font-mono [font-variant-numeric:tabular-nums]">{{ rectifiedHazards.value.toLocaleString() }} / {{ totalHazards.value.toLocaleString() }}</span>
+                    <span class="font-vfonts [font-variant-numeric:tabular-nums]">{{ rectifiedHazards.value.toLocaleString() }} / {{ totalHazards.value.toLocaleString() }}</span>
                 </div>
                 <div class="hazard-progress-track relative h-1.5 overflow-hidden bg-sky-950/70">
                     <i class="hazard-progress-fill block h-full" :style="{ width: `${rectificationRate.value}%` }" />
@@ -32,14 +32,14 @@
                         <span class="whitespace-nowrap text-xs text-sky-50/70">今日新增</span>
                         <small class="truncate text-[10px] text-sky-100/30">实时汇入隐患</small>
                     </span>
-                    <strong class="whitespace-nowrap font-mono text-lg font-medium text-[#f1c278] [font-variant-numeric:tabular-nums]">+{{ todayAdded.value }}<small class="ml-1 font-sans text-[10px] font-normal text-sky-100/40">{{ todayAdded.unit }}</small></strong>
+                    <strong class="whitespace-nowrap font-vfonts text-lg font-medium text-[#f1c278] [font-variant-numeric:tabular-nums]">+{{ todayAdded.value }}<small class="ml-1 font-sans text-[10px] font-normal text-sky-100/40">{{ todayAdded.unit }}</small></strong>
                 </article>
                 <article class="grid min-h-[54px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-l border-sky-200/10 px-3.5 py-2.5">
                     <span class="grid min-w-0 gap-0.5">
                         <span class="whitespace-nowrap text-xs text-sky-50/70">累计整改</span>
                         <small class="truncate text-[10px] text-sky-100/30">闭环处置完成</small>
                     </span>
-                    <strong class="whitespace-nowrap font-mono text-lg font-medium text-[#83e7c2] [font-variant-numeric:tabular-nums]">{{ rectifiedHazards.value.toLocaleString() }}<small class="ml-1 font-sans text-[10px] font-normal text-sky-100/40">{{ rectifiedHazards.unit }}</small></strong>
+                    <strong class="whitespace-nowrap font-vfonts text-lg font-medium text-[#83e7c2] [font-variant-numeric:tabular-nums]">{{ rectifiedHazards.value.toLocaleString() }}<small class="ml-1 font-sans text-[10px] font-normal text-sky-100/40">{{ rectifiedHazards.unit }}</small></strong>
                 </article>
             </div>
         </section>
