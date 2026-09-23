@@ -29,9 +29,9 @@ export const perceptionDevices: DashboardMetric[] = [
 ];
 
 export const policeCases: DashboardProgressMetric[] = [
-    { name: '案件', value: 42, percentage: 56, icon: '/static/images/home/icon_08.png' },
-    { name: '火险火灾', value: 11, percentage: 15, icon: '/static/images/home/icon_09.png' },
-    { name: '交通事故', value: 22, percentage: 29, icon: '/static/images/home/icon_10.png' },
+    { name: '火险火灾', value: 42, percentage: 56, icon: '/static/images/home/icon_08.png' },
+    { name: '交通事故', value: 11, percentage: 15, icon: '/static/images/home/icon_09.png' },
+    { name: '案件', value: 22, percentage: 29, icon: '/static/images/home/icon_10.png' },
 ];
 
 export const hazardOverview = [

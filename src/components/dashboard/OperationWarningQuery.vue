@@ -83,7 +83,7 @@ import {
     type WarningEventLevel,
     type WarningEventStatus,
 } from '@/config/operation';
-import { dateRangeShortcuts, noSideSpace } from '@/utils/options';
+import { dateRangeShortcuts, noSideSpace } from '@/utils/utils';
 
 defineEmits<{ select: [event: OperationWarningEvent] }>();
 

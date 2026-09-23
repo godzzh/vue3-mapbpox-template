@@ -107,7 +107,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { appConfig } from '@/config';
 import { CPLogin } from '@/services/auth';
 import { useUserStore } from '@/stores/user';
-import { noSideSpace } from '@/utils/options';
+import { noSideSpace } from '@/utils/utils';
 
 const route = useRoute();
 const router = useRouter();

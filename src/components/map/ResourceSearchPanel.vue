@@ -36,7 +36,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { noSideSpace } from "@/utils/options";
+import { noSideSpace } from '@/utils/utils';
 import { RiSearchEyeLine, RiSearchLine } from '@remixicon/vue';
 import { ref } from 'vue';
 import MapPopupTitle from '@/components/map/MapPopupTitle.vue';

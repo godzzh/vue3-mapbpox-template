@@ -148,7 +148,7 @@ src/
 
 ## 输入框与值规范化
 
-- 普通单行文本输入框（账号、名称、标题、关键字、手机号、业务编码等）统一使用 `src/utils/options.ts` 导出的 `noSideSpace`，Naive UI `n-input` 写法为 `:allow-input="noSideSpace"`，避免录入首尾空白字符。
+- 普通单行文本输入框（账号、名称、标题、关键字、手机号、业务编码等）统一使用 `src/utils/utils.ts` 导出的 `noSideSpace`，Naive UI `n-input` 写法为 `:allow-input="noSideSpace"`，避免录入首尾空白字符。
 - 搜索和提交时仍需对最终值调用 `trim()`，前端输入限制不能替代提交边界的规范化与校验。
 - 密码、密钥、验证码、多行正文、备注、Markdown、代码、详细地址和富文本不得套用 `noSideSpace`，这些字段必须保留原始输入或按明确接口契约处理。
 - 日期选择器、数字选择器、下拉框、单选框等非文本输入组件不使用 `noSideSpace`。
